@@ -1,0 +1,49 @@
+﻿@model List<Depom.Application.Stock.DTOs.StockMovementListDto>
+@{ ViewData["Title"] = "Hareket Gecmisi"; }
+
+<h4 class="mb-4">Hareket Gecmisi</h4>
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Urun</th>
+                    <th>Tur</th>
+                    <th class="text-center">Miktar</th>
+                    <th>Yapan</th>
+                    <th>Not</th>
+                    <th>Tarih</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>
+                        @switch (item.Type)
+                        {
+                            case Depom.Domain.Enums.StockMovementType.In:
+                                <span class="badge bg-success">Giris</span>
+                                break;
+                            case Depom.Domain.Enums.StockMovementType.Out:
+                                <span class="badge bg-danger">Cikis</span>
+                                break;
+                            case Depom.Domain.Enums.StockMovementType.Adjust:
+                                <span class="badge bg-warning text-dark">Duzeltme</span>
+                                break;
+                            default:
+                                <span class="badge bg-info">Transfer</span>
+                                break;
+                        }
+                    </td>
+                    <td class="text-center">@item.Quantity</td>
+                    <td>@item.CreatedByUserName</td>
+                    <td>@(item.Note ?? "-")</td>
+                    <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

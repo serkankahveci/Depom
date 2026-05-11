@@ -1,0 +1,17 @@
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Application.deps.json
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Application.dll
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Application.pdb
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Domain.dll
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Infrastructure.dll
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Domain.pdb
+C:\Projects\Depom\Depom.Application\bin\Debug\net8.0\Depom.Infrastructure.pdb
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.csproj.AssemblyReference.cache
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.AssemblyInfoInputs.cache
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.AssemblyInfo.cs
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.csproj.CoreCompileInputs.cache
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Ap.A0EE6E80.Up2Date
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.dll
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\refint\Depom.Application.dll
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.pdb
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\ref\Depom.Application.dll

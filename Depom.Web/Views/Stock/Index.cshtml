@@ -1,0 +1,64 @@
+﻿@model List<Depom.Application.Stock.DTOs.StockItemDto>
+@{ ViewData["Title"] = "Stok Durumu"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Stok Durumu</h4>
+    <div class="d-flex gap-2">
+        <a asp-action="Movement" class="btn btn-success btn-sm">Giris/Cikis</a>
+        <a asp-action="Adjust" class="btn btn-warning btn-sm">Duzelt</a>
+    </div>
+</div>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-4">
+        <select name="branchId" asp-items="ViewBag.Branches" class="form-select" onchange="this.form.submit()">
+            <option value="">-- Sube secin --</option>
+        </select>
+    </div>
+</form>
+
+@if (Model.Any())
+{
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Urun</th>
+                        <th>SKU</th>
+                        <th class="text-center">Miktar</th>
+                        <th class="text-center">Rezerve</th>
+                        <th class="text-center">Kullanilabilir</th>
+                        <th class="text-center">Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(item.IsLowStock ? "table-warning" : "")">
+                        <td>@item.ProductName</td>
+                        <td><code>@item.SKU</code></td>
+                        <td class="text-center">@item.Quantity</td>
+                        <td class="text-center">@item.ReservedQuantity</td>
+                        <td class="text-center fw-bold">@item.AvailableQuantity</td>
+                        <td class="text-center">
+                            @if (item.IsLowStock)
+                            {
+                                <span class="badge bg-warning text-dark">Dusuk Stok</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-success">Normal</span>
+                            }
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else if (ViewBag.BranchId != null)
+{
+    <div class="alert alert-info">Bu subede henuz stok kaydÄ± bulunmuyor.</div>
+}

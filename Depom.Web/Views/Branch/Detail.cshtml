@@ -1,0 +1,24 @@
+﻿@model Depom.Application.Branch.DTOs.BranchDetailDto
+@{ ViewData["Title"] = "Sube Detay"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>@Model.Name</h4>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Geri</a>
+</div>
+
+<div class="card border-0 shadow-sm" style="max-width:560px">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-4">Sube Adi</dt>
+            <dd class="col-8">@Model.Name</dd>
+            <dt class="col-4">Telefon</dt>
+            <dd class="col-8">@(Model.Phone ?? "-")</dd>
+            <dt class="col-4">Adres</dt>
+            <dd class="col-8">@(Model.Address ?? "-")</dd>
+            <dt class="col-4">Durum</dt>
+            <dd class="col-8">@(Model.IsActive ? "Aktif" : "Pasif")</dd>
+            <dt class="col-4">Olusturulma</dt>
+            <dd class="col-8">@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
+        </dl>
+    </div>
+</div>

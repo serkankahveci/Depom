@@ -1,0 +1,32 @@
+﻿@{ ViewData["Title"] = "Ana Sayfa"; }
+
+<div class="row g-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1">&#127978;</div>
+            <div class="fw-bold mt-2">Subeler</div>
+            <a asp-controller="Branch" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1">&#128230;</div>
+            <div class="fw-bold mt-2">Urunler</div>
+            <a asp-controller="Product" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1">&#128202;</div>
+            <div class="fw-bold mt-2">Stok</div>
+            <a asp-controller="Stock" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1">&#128260;</div>
+            <div class="fw-bold mt-2">Transferler</div>
+            <a asp-controller="Transfer" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+</div>

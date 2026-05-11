@@ -1,0 +1,22 @@
+﻿@model List<Depom.Application.Category.DTOs.CategoryListDto>
+@{ ViewData["Title"] = "Kategoriler"; }
+<div class="d-flex justify-content-between mb-3">
+    <h4>Kategoriler</h4>
+    <a asp-action="Create" class="btn btn-primary btn-sm">+ Yeni</a>
+</div>
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table mb-0">
+            <thead class="table-light"><tr><th>Ad</th><th>Durum</th></tr></thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><span class="badge bg-@(item.IsActive ? "success" : "secondary")">@(item.IsActive ? "Aktif" : "Pasif")</span></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

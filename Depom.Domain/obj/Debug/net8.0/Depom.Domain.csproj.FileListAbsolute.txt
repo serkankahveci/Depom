@@ -1,0 +1,11 @@
+C:\Projects\Depom\Depom.Domain\bin\Debug\net8.0\Depom.Domain.deps.json
+C:\Projects\Depom\Depom.Domain\bin\Debug\net8.0\Depom.Domain.dll
+C:\Projects\Depom\Depom.Domain\bin\Debug\net8.0\Depom.Domain.pdb
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.AssemblyInfoInputs.cache
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.AssemblyInfo.cs
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.csproj.CoreCompileInputs.cache
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.dll
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\refint\Depom.Domain.dll
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.pdb
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\ref\Depom.Domain.dll

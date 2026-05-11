@@ -1,0 +1,59 @@
+﻿@model List<Depom.Application.Transfer.DTOs.TransferListDto>
+@{ ViewData["Title"] = "Transferler"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4>Subeler Arasi Transferler</h4>
+    @if (User.IsInRole("SystemAdmin") || User.IsInRole("BranchManager"))
+    {
+        <a asp-action="Create" class="btn btn-primary btn-sm">+ Yeni Transfer</a>
+    }
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Urun</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th class="text-center">Miktar</th>
+                    <th>Durum</th>
+                    <th>Tarih</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.ProductName</td>
+                    <td>@item.SourceBranchName</td>
+                    <td>@item.TargetBranchName</td>
+                    <td class="text-center">@item.Quantity</td>
+                    <td>
+                        @{
+                            var badgeColor = item.Status switch
+                            {
+                                Depom.Domain.Enums.TransferStatus.Draft     => "secondary",
+                                Depom.Domain.Enums.TransferStatus.Pending   => "info",
+                                Depom.Domain.Enums.TransferStatus.Approved  => "primary",
+                                Depom.Domain.Enums.TransferStatus.InTransit => "warning",
+                                Depom.Domain.Enums.TransferStatus.Received  => "success",
+                                Depom.Domain.Enums.TransferStatus.Cancelled => "danger",
+                                Depom.Domain.Enums.TransferStatus.Rejected  => "dark",
+                                _ => "secondary"
+                            };
+                        }
+                        <span class="badge bg-@badgeColor">@item.Status</span>
+                    </td>
+                    <td>@item.CreatedAt.ToString("dd.MM.yyyy")</td>
+                    <td><a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detay</a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model Depom.Application.Product.DTOs.ProductDetailDto
+@{ ViewData["Title"] = "Urun Detay"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>@Model.Name</h4>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Geri</a>
+</div>
+<div class="card border-0 shadow-sm" style="max-width:560px">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-5">SKU</dt><dd class="col-7"><code>@Model.SKU</code></dd>
+            <dt class="col-5">Barkod</dt><dd class="col-7">@(Model.Barcode ?? "-")</dd>
+            <dt class="col-5">Kategori</dt><dd class="col-7">@Model.CategoryName</dd>
+            <dt class="col-5">Fiyat</dt><dd class="col-7">@Model.Price.ToString("N2") TL</dd>
+            <dt class="col-5">Dusuk Stok Esigi</dt><dd class="col-7">@Model.LowStockThreshold</dd>
+            <dt class="col-5">Durum</dt><dd class="col-7">@Model.Status</dd>
+            <dt class="col-5">Aciklama</dt><dd class="col-7">@(Model.Description ?? "-")</dd>
+            <dt class="col-5">Olusturulma</dt><dd class="col-7">@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
+        </dl>
+    </div>
+</div>

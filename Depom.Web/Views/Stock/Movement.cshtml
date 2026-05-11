@@ -1,0 +1,43 @@
+﻿@model Depom.Application.Stock.DTOs.StockMovementCreateDto
+@using Depom.Domain.Enums
+@{ ViewData["Title"] = "Stok Giris / Cikis"; }
+
+<h4 class="mb-4">Stok Giris / Cikis</h4>
+<div class="card border-0 shadow-sm" style="max-width:520px">
+    <div class="card-body">
+        <form asp-action="Movement" method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="BranchId" class="form-label">Sube</label>
+                <select asp-for="BranchId" asp-items="ViewBag.Branches" class="form-select">
+                    <option value="">-- Secin --</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ProductId" class="form-label">Urun</label>
+                <select asp-for="ProductId" asp-items="ViewBag.Products" class="form-select">
+                    <option value="">-- Secin --</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label">Islem Turu</label>
+                <select asp-for="Type" class="form-select">
+                    <option value="0">Giris (Mal Kabul)</option>
+                    <option value="1">Cikis (Mal Sevk)</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Quantity" class="form-label">Miktar</label>
+                <input asp-for="Quantity" class="form-control" type="number" min="1" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Note" class="form-label">Not</label>
+                <input asp-for="Note" class="form-control" />
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Iptal</a>
+            </div>
+        </form>
+    </div>
+</div>

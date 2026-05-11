@@ -1,0 +1,49 @@
+﻿@model Depom.Application.User.DTOs.LoginDto
+@{
+    Layout = null;
+    ViewData["Title"] = "Giris Yap";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Depom - Giris Yap</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body { background: #f0f2f5; }
+        .login-card { max-width: 420px; margin: 100px auto; }
+    </style>
+</head>
+<body>
+<div class="login-card">
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-4">
+            <h4 class="text-center mb-4 fw-bold">Depom</h4>
+            <asp-validation-summary asp-for="@Model" class="alert alert-danger" />
+            <form method="post">
+                @Html.AntiForgeryToken()
+                <div class="mb-3">
+                    <label asp-for="Username" class="form-label">Kullanici Adi</label>
+                    <input asp-for="Username" class="form-control" autofocus />
+                    <span asp-validation-for="Username" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label">Sifre</label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-3 form-check">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    <label asp-for="RememberMe" class="form-check-label">Beni hatirla</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Giris Yap</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

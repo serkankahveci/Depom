@@ -1,0 +1,28 @@
+﻿@model Depom.Application.Branch.DTOs.BranchCreateDto
+@{ ViewData["Title"] = "Yeni Sube"; }
+
+<h4 class="mb-4">Yeni Sube</h4>
+<div class="card border-0 shadow-sm" style="max-width:560px">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Sube Adi</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Address" class="form-label">Adres</label>
+                <textarea asp-for="Address" class="form-control" rows="2"></textarea>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label">Telefon</label>
+                <input asp-for="Phone" class="form-control" />
+            </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Kaydet</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Iptal</a>
+            </div>
+        </form>
+    </div>
+</div>

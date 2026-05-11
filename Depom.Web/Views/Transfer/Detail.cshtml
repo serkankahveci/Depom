@@ -1,0 +1,98 @@
+﻿@model Depom.Application.Transfer.DTOs.TransferDetailDto
+@{ ViewData["Title"] = "Transfer Detay"; }
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4>Transfer #@Model.Id</h4>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Geri</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-5">Urun</dt><dd class="col-7">@Model.ProductName</dd>
+                    <dt class="col-5">Kaynak</dt><dd class="col-7">@Model.SourceBranchName</dd>
+                    <dt class="col-5">Hedef</dt><dd class="col-7">@Model.TargetBranchName</dd>
+                    <dt class="col-5">Miktar</dt><dd class="col-7 fw-bold">@Model.Quantity</dd>
+                    <dt class="col-5">Durum</dt><dd class="col-7"><span class="badge bg-primary">@Model.Status</span></dd>
+                    <dt class="col-5">Olusturan</dt><dd class="col-7">@Model.CreatedByUserName</dd>
+                    <dt class="col-5">Not</dt><dd class="col-7">@(Model.Note ?? "-")</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <div class="card border-0 shadow-sm mb-3">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Islemler</h6>
+                <div class="d-flex flex-wrap gap-2">
+                @if (Model.Status == Depom.Domain.Enums.TransferStatus.Draft)
+                {
+                    <form asp-action="Submit" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-info btn-sm">Gonder (Pending)</button>
+                    </form>
+                    <form asp-action="Cancel" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-outline-danger btn-sm">Iptal Et</button>
+                    </form>
+                }
+                @if (Model.Status == Depom.Domain.Enums.TransferStatus.Pending && (User.IsInRole("SystemAdmin") || User.IsInRole("BranchManager")))
+                {
+                    <form asp-action="Approve" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-success btn-sm">Onayla</button>
+                    </form>
+                    <form asp-action="Cancel" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-outline-danger btn-sm">Reddet</button>
+                    </form>
+                }
+                @if (Model.Status == Depom.Domain.Enums.TransferStatus.Approved)
+                {
+                    <form asp-action="Ship" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-warning btn-sm">Sevk Et (Yolda)</button>
+                    </form>
+                }
+                @if (Model.Status == Depom.Domain.Enums.TransferStatus.InTransit)
+                {
+                    <form asp-action="Receive" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="TransferId" value="@Model.Id" />
+                        <button class="btn btn-success btn-sm">Teslim Alindi</button>
+                    </form>
+                }
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Denetim Izi</h6>
+                <ul class="list-group list-group-flush">
+                @foreach (var log in Model.Logs.OrderBy(x => x.CreatedAt))
+                {
+                    <li class="list-group-item px-0">
+                        <div class="d-flex justify-content-between">
+                            <span><strong>@log.ActingUserName</strong>: @log.OldStatus &rarr; <strong>@log.NewStatus</strong></span>
+                            <small class="text-muted">@log.CreatedAt.ToString("dd.MM HH:mm")</small>
+                        </div>
+                        @if (!string.IsNullOrEmpty(log.Note))
+                        {
+                            <small class="text-muted">@log.Note</small>
+                        }
+                    </li>
+                }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
