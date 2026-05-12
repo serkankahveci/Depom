@@ -9,3 +9,4 @@ C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.dll
 C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\refint\Depom.Domain.dll
 C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.pdb
 C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\ref\Depom.Domain.dll
+C:\Projects\Depom\Depom.Domain\obj\Debug\net8.0\Depom.Domain.sourcelink.json

@@ -1,4 +1,4 @@
-﻿using Depom.Application;
+using Depom.Application;
 using Depom.Application.User.Services;
 using Depom.Infrastructure;
 using Microsoft.AspNetCore.Localization;

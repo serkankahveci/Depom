@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Depom.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b668da63a9bc9fe2902860633f1f4dbabd7e5542")]
 [assembly: System.Reflection.AssemblyProductAttribute("Depom.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Depom.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

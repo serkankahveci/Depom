@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8" />
@@ -29,6 +29,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="Transfer" asp-action="Index">Transferler</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (User.IsInRole("SystemAdmin"))
+                        {
+                            <a class="nav-link" asp-controller="User" asp-action="Index">Kullanıcılar</a>
+                        }
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">

@@ -15,3 +15,4 @@ C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.dll
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\refint\Depom.Application.dll
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.pdb
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\ref\Depom.Application.dll
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.sourcelink.json

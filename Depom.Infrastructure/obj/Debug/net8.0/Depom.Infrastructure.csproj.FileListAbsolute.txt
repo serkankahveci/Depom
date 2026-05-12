@@ -15,3 +15,4 @@ C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\refint\Depom.Infrastruct
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.pdb
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.genruntimeconfig.cache
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\ref\Depom.Infrastructure.dll
+C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.sourcelink.json
