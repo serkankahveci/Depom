@@ -1,61 +1,70 @@
 @model Depom.Application.User.DTOs.UserCreateDto
 @{
-    ViewData["Title"] = "Yeni Kullanıcı";
+    ViewData["Title"] = "Yeni Kullanici";
 }
 
-<div class="row justify-content-center">
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Yeni Kullanici</h5>
+        <p class="page-subtitle">Sisteme yeni kullanici ekle</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="ri-arrow-left-line me-1"></i> Geri
+    </a>
+</div>
+
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Yeni Kullanıcı Ekle</h5>
-            </div>
+        <div class="card">
             <div class="card-body">
                 <form asp-action="Create" method="post">
                     @Html.AntiForgeryToken()
-                    <div asp-validation-summary="All" class="alert alert-danger" style="display:none"></div>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" style="font-size:13px;"></div>
 
                     <div class="mb-3">
-                        <label asp-for="FullName" class="form-label">Ad Soyad</label>
-                        <input asp-for="FullName" class="form-control" placeholder="Ahmet Yılmaz" />
-                        <span asp-validation-for="FullName" class="text-danger small"></span>
+                        <label class="form-label">Ad Soyad</label>
+                        <input asp-for="FullName" class="form-control" placeholder="Ahmet Yilmaz" />
+                        <span asp-validation-for="FullName" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Username" class="form-label">Kullanıcı Adı</label>
+                        <label class="form-label">Kullanici Adi</label>
                         <input asp-for="Username" class="form-control" placeholder="ahmet.yilmaz" autocomplete="off" />
-                        <span asp-validation-for="Username" class="text-danger small"></span>
+                        <span asp-validation-for="Username" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Password" class="form-label">Şifre</label>
+                        <label class="form-label">Sifre</label>
                         <input asp-for="Password" type="password" class="form-control" autocomplete="new-password" />
-                        <div class="form-text">En az 6 karakter.</div>
-                        <span asp-validation-for="Password" class="text-danger small"></span>
+                        <div class="text-depom-muted" style="font-size:12px; margin-top:4px;">En az 6 karakter.</div>
+                        <span asp-validation-for="Password" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="Role" class="form-label">Rol</label>
+                        <label class="form-label">Rol</label>
                         <select asp-for="Role" asp-items="ViewBag.Roles" class="form-select">
-                            <option value="">-- Rol Seçin --</option>
+                            <option value="">-- Rol Secin --</option>
                         </select>
-                        <span asp-validation-for="Role" class="text-danger small"></span>
+                        <span asp-validation-for="Role" class="text-danger" style="font-size:12px;"></span>
                     </div>
 
                     <div class="mb-3">
-                        <label asp-for="BranchId" class="form-label">Şube <span class="text-muted small">(opsiyonel)</span></label>
+                        <label class="form-label">Sube <span class="text-depom-muted" style="font-size:12px;">(opsiyonel)</span></label>
                         <select asp-for="BranchId" asp-items="ViewBag.Branches" class="form-select">
-                            <option value="">-- Şube Yok (Sistem Admin) --</option>
+                            <option value="">-- Sube Yok --</option>
                         </select>
                     </div>
 
-                    <div class="mb-3 form-check">
-                        <input asp-for="IsActive" class="form-check-input" type="checkbox" />
-                        <label asp-for="IsActive" class="form-check-label">Aktif</label>
+                    <div class="mb-4 form-check">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" checked />
+                        <label class="form-check-label" style="font-size:14px;">Aktif</label>
                     </div>
 
                     <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">Kaydet</button>
-                        <a asp-action="Index" class="btn btn-outline-secondary">İptal</a>
+                        <button type="submit" class="btn-depom-primary">
+                            <i class="ri-save-line me-1"></i> Kaydet
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Iptal</a>
                     </div>
                 </form>
             </div>

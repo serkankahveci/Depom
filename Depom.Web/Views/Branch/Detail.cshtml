@@ -1,24 +1,55 @@
 ﻿@model Depom.Application.Branch.DTOs.BranchDetailDto
-@{ ViewData["Title"] = "Sube Detay"; }
+@{
+    ViewData["Title"] = "Sube Detayi";
+}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4>@Model.Name</h4>
-    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Geri</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Sube Detayi</h5>
+        <p class="page-subtitle">@Model.Name</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-depom-primary">
+            <i class="ri-pencil-line me-1"></i> Duzenle
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+            <i class="ri-arrow-left-line me-1"></i> Geri
+        </a>
+    </div>
 </div>
 
-<div class="card border-0 shadow-sm" style="max-width:560px">
-    <div class="card-body">
-        <dl class="row mb-0">
-            <dt class="col-4">Sube Adi</dt>
-            <dd class="col-8">@Model.Name</dd>
-            <dt class="col-4">Telefon</dt>
-            <dd class="col-8">@(Model.Phone ?? "-")</dd>
-            <dt class="col-4">Adres</dt>
-            <dd class="col-8">@(Model.Address ?? "-")</dd>
-            <dt class="col-4">Durum</dt>
-            <dd class="col-8">@(Model.IsActive ? "Aktif" : "Pasif")</dd>
-            <dt class="col-4">Olusturulma</dt>
-            <dd class="col-8">@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
-        </dl>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Sube Adi</dt>
+                    <dd class="col-sm-8 fw-semibold">@Model.Name</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Adres</dt>
+                    <dd class="col-sm-8">@(Model.Address ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Telefon</dt>
+                    <dd class="col-sm-8">@(Model.Phone ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Durum</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.IsActive)
+                        {
+                            <span class="badge-depom-success">Aktif</span>
+                        }
+                        else
+                        {
+                            <span class="badge-depom-danger">Pasif</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Kayit Tarihi</dt>
+                    <dd class="col-sm-8" style="font-size:13px;">
+                        @Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                    </dd>
+                </dl>
+            </div>
+        </div>
     </div>
 </div>

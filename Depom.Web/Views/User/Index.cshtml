@@ -1,40 +1,30 @@
 @model List<Depom.Application.User.DTOs.UserListDto>
 @{
-    ViewData["Title"] = "Kullanıcı Yönetimi";
+    ViewData["Title"] = "Kullanicilar";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4 class="mb-0">👥 Kullanıcı Yönetimi</h4>
-    <a asp-action="Create" class="btn btn-primary">+ Yeni Kullanıcı</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Kullanicilar</h5>
+        <p class="page-subtitle">Sistem kullanici listesi</p>
+    </div>
+    <a asp-action="Create" class="btn-depom-primary">
+        <i class="ri-add-line me-1"></i> Yeni Kullanici
+    </a>
 </div>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Success"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        @TempData["Error"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-}
-
-<div class="card shadow-sm">
+<div class="card">
     <div class="card-body p-0">
-        <table class="table table-hover mb-0">
-            <thead class="table-dark">
+        <table class="table mb-0">
+            <thead>
                 <tr>
                     <th>Ad Soyad</th>
-                    <th>Kullanıcı Adı</th>
+                    <th>Kullanici Adi</th>
                     <th>Rol</th>
-                    <th>Şube</th>
+                    <th>Sube</th>
                     <th>Durum</th>
-                    <th>Son Giriş</th>
-                    <th class="text-end">İşlemler</th>
+                    <th>Son Giris</th>
+                    <th class="text-end">Islemler</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,48 +32,58 @@
                 {
                     <tr>
                         <td class="fw-semibold">@user.FullName</td>
-                        <td class="text-muted">@user.Username</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@user.Username</td>
                         <td>
                             @{
-                                var badgeClass = user.Role switch
+                                var (cls, lbl) = user.Role switch
                                 {
-                                    Depom.Domain.Enums.AppRole.SystemAdmin => "bg-danger",
-                                    Depom.Domain.Enums.AppRole.BranchManager => "bg-primary",
-                                    Depom.Domain.Enums.AppRole.StockClerk => "bg-info text-dark",
-                                    _ => "bg-secondary"
+                                    Depom.Domain.Enums.AppRole.SystemAdmin => ("badge-depom-danger", "Sistem Yoneticisi"),
+                                    Depom.Domain.Enums.AppRole.BranchManager => ("badge-depom-info", "Sube Muduru"),
+                                    Depom.Domain.Enums.AppRole.StockClerk => ("badge-depom-accent", "Depo Personeli"),
+                                    _ => ("badge-depom-primary", "Izleyici")
                                 };
                             }
-                            <span class="badge @badgeClass">@user.RoleDisplay</span>
+                            <span class="@cls">@lbl</span>
                         </td>
-                        <td>@(user.BranchName ?? "—")</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@(user.BranchName ?? "-")</td>
                         <td>
                             @if (user.IsActive)
                             {
-                                <span class="badge bg-success">Aktif</span>
+                                <span class="badge-depom-success">Aktif</span>
                             }
                             else
                             {
-                                <span class="badge bg-warning text-dark">Pasif</span>
+                                <span class="badge-depom-warning">Pasif</span>
                             }
-                        </td>
-                        <td class="text-muted small">
-                            @(user.LastLoginAt.HasValue? user.LastLoginAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm") : "Henüz giriş yok")
-                        </td>
-                        <td class="text-end">
-                            <a asp-action="Detail" asp-route-id="@user.Id" class="btn btn-sm btn-outline-secondary">Detay</a>
-                            <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-outline-primary">Düzenle</a>
-                            <button type="button" class="btn btn-sm btn-outline-danger"
-                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                    data-id="@user.Id" data-name="@user.FullName">
-                                Sil
-                            </button>
-                        </td>
-                    </tr>
-                }
+                    </td>
+                    <td class="text-depom-muted" style="font-size:13px;">
+                        @(user.LastLoginAt.HasValue
+                                                ? user.LastLoginAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                                                : "Giris yapilmadi")
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Detail" asp-route-id="@user.Id"
+                           class="btn btn-sm btn-outline-secondary me-1">
+                            <i class="ri-eye-line"></i>
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@user.Id"
+                           class="btn btn-sm btn-outline-primary me-1">
+                            <i class="ri-pencil-line"></i>
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                data-id="@user.Id" data-name="@user.FullName">
+                            <i class="ri-delete-bin-line"></i>
+                        </button>
+                    </td>
+                </tr>
+                                }
                 @if (!Model.Any())
                 {
                     <tr>
-                        <td colspan="7" class="text-center text-muted py-4">Henüz kullanıcı eklenmemiş.</td>
+                        <td colspan="7" class="text-center text-depom-muted py-4">
+                            Henuz kullanici eklenmemis.
+                        </td>
                     </tr>
                 }
             </tbody>
@@ -95,18 +95,18 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Kullanıcıyı Sil</h5>
+                <h6 class="modal-title">Kullaniciyi Sil</h6>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p><strong id="deleteUserName"></strong> adlı kullanıcıyı silmek istediğinize emin misiniz?</p>
-                <p class="text-danger small">Bu işlem geri alınamaz.</p>
+                <p><strong id="deleteName"></strong> adli kullaniciyi silmek istediginize emin misiniz?</p>
+                <p class="text-danger" style="font-size:13px;">Bu islem geri alinamaz.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Iptal</button>
                 <form id="deleteForm" method="post">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger">Sil</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
                 </form>
             </div>
         </div>
@@ -116,11 +116,9 @@
 @section Scripts {
     <script>
         document.getElementById('deleteModal').addEventListener('show.bs.modal', function (e) {
-            const btn  = e.relatedTarget;
-            const id   = btn.getAttribute('data-id');
-            const name = btn.getAttribute('data-name');
-            document.getElementById('deleteUserName').textContent = name;
-            document.getElementById('deleteForm').action = '/User/Delete/' + id;
+            const btn = e.relatedTarget;
+            document.getElementById('deleteName').textContent = btn.getAttribute('data-name');
+            document.getElementById('deleteForm').action = '/User/Delete/' + btn.getAttribute('data-id');
         });
     </script>
 }

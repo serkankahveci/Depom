@@ -1,0 +1,64 @@
+﻿<aside class="sidebar">
+    <button type="button" class="sidebar-close-btn">
+        <i class="ri-close-line"></i>
+    </button>
+    <div>
+        <a href="/Home/Index" class="sidebar-logo">
+            <span class="light-logo fw-bold text-white fs-5 ps-2">Depom</span>
+            <span class="logo-icon fw-bold text-white fs-5">D</span>
+        </a>
+    </div>
+    <div class="sidebar-menu-area">
+        <ul class="sidebar-menu" id="sidebar-menu">
+
+            <li class="sidebar-menu-group-title">Ana Ekranlar</li>
+
+            <li>
+                <a href="/Home/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" ? "active-page" : "")">
+                    <i class="ri-dashboard-line menu-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Branch/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Branch" ? "active-page" : "")">
+                    <i class="ri-building-2-line menu-icon"></i>
+                    <span>Subeler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Product/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Product" ? "active-page" : "")">
+                    <i class="ri-box-3-line menu-icon"></i>
+                    <span>Urunler</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Stock/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Stock" ? "active-page" : "")">
+                    <i class="ri-stack-line menu-icon"></i>
+                    <span>Stok</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/Transfer/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Transfer" ? "active-page" : "")">
+                    <i class="ri-swap-box-line menu-icon"></i>
+                    <span>Transferler</span>
+                </a>
+            </li>
+
+            @if (User.IsInRole("SystemAdmin"))
+            {
+                <li class="sidebar-menu-group-title">Yonetim</li>
+                <li>
+                    <a href="/User/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "User" ? "active-page" : "")">
+                        <i class="ri-group-line menu-icon"></i>
+                        <span>Kullanicilar</span>
+                    </a>
+                </li>
+            }
+
+        </ul>
+    </div>
+</aside>

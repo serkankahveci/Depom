@@ -9,10 +9,10 @@ C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.Gen
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.AssemblyInfoInputs.cache
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.AssemblyInfo.cs
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.sourcelink.json
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.In.EE9ED021.Up2Date
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.dll
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\refint\Depom.Infrastructure.dll
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.pdb
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.genruntimeconfig.cache
 C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\ref\Depom.Infrastructure.dll
-C:\Projects\Depom\Depom.Infrastructure\obj\Debug\net8.0\Depom.Infrastructure.sourcelink.json

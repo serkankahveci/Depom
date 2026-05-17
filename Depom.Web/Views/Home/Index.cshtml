@@ -1,32 +1,165 @@
-﻿@{ ViewData["Title"] = "Ana Sayfa"; }
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
 
-<div class="row g-4">
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1">&#127978;</div>
-            <div class="fw-bold mt-2">Subeler</div>
-            <a asp-controller="Branch" asp-action="Index" class="stretched-link"></a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Dashboard</h5>
+        <p class="page-subtitle">Genel envanter durumu</p>
+    </div>
+</div>
+
+<!-- Stat Kartlari -->
+<div class="row g-3 mb-4">
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-card-icon primary">
+                <i class="ri-building-2-line"></i>
+            </div>
+            <div>
+                <div class="stat-card-label">Subeler</div>
+                <div class="stat-card-value">@ViewBag.BranchCount</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1">&#128230;</div>
-            <div class="fw-bold mt-2">Urunler</div>
-            <a asp-controller="Product" asp-action="Index" class="stretched-link"></a>
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-card-icon accent">
+                <i class="ri-box-3-line"></i>
+            </div>
+            <div>
+                <div class="stat-card-label">Urunler</div>
+                <div class="stat-card-value">@ViewBag.ProductCount</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1">&#128202;</div>
-            <div class="fw-bold mt-2">Stok</div>
-            <a asp-controller="Stock" asp-action="Index" class="stretched-link"></a>
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-card-icon success">
+                <i class="ri-stack-line"></i>
+            </div>
+            <div>
+                <div class="stat-card-label">Stok Kalemleri</div>
+                <div class="stat-card-value">@ViewBag.StockCount</div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1">&#128260;</div>
-            <div class="fw-bold mt-2">Transferler</div>
-            <a asp-controller="Transfer" asp-action="Index" class="stretched-link"></a>
+    <div class="col-xl-3 col-sm-6">
+        <div class="stat-card">
+            <div class="stat-card-icon info">
+                <i class="ri-swap-box-line"></i>
+            </div>
+            <div>
+                <div class="stat-card-label">Aktif Transferler</div>
+                <div class="stat-card-value">@ViewBag.ActiveTransferCount</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Son Transferler -->
+<div class="row g-3">
+    <div class="col-xl-8">
+        <div class="card">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span>Son Transferler</span>
+                <a href="/Transfer/Index" class="text-depom-accent" style="font-size:13px;">
+                    Tumunu Gor <i class="ri-arrow-right-line"></i>
+                </a>
+            </div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Kaynak Sube</th>
+                            <th>Hedef Sube</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.RecentTransfers != null)
+                        {
+                            foreach (var t in ViewBag.RecentTransfers)
+                            {
+                                <tr>
+                                    <td>#@t.Id</td>
+                                    <td>@t.SourceBranchName</td>
+                                    <td>@t.TargetBranchName</td>
+                                    <td>
+                                        @{
+                                            var (badgeClass, label) = ((string)t.Status.ToString()) switch
+                                            {
+                                                "Draft" => ("badge-depom-primary", "Taslak"),
+                                                "Pending" => ("badge-depom-warning", "Beklemede"),
+                                                "Approved" => ("badge-depom-info", "Onaylandi"),
+                                                "InTransit" => ("badge-depom-accent", "Yolda"),
+                                                "Received" => ("badge-depom-success", "Alindi"),
+                                                "Cancelled" => ("badge-depom-danger", "Iptal"),
+                                                "Rejected" => ("badge-depom-danger", "Reddedildi"),
+                                                _ => ("badge-depom-primary", t.Status.ToString())
+                                            };
+                                        }
+                                        <span class="@badgeClass">@label</span>
+                                    </td>
+                                    <td class="text-depom-muted" style="font-size:13px;">
+                                        @t.CreatedAt.ToString("dd.MM.yyyy")
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center text-depom-muted py-4">
+                                    Henuz transfer bulunmuyor.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card h-100">
+            <div class="card-header">Dusuk Stok Uyarisi</div>
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Urun</th>
+                            <th>Sube</th>
+                            <th>Miktar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.LowStockItems != null)
+                        {
+                            foreach (var s in ViewBag.LowStockItems)
+                            {
+                                <tr>
+                                    <td style="font-size:13px;">@s.ProductName</td>
+                                    <td style="font-size:13px;" class="text-depom-muted">@s.BranchName</td>
+                                    <td>
+                                        <span class="badge-depom-danger">@s.Quantity</span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center text-depom-muted py-4">
+                                    Dusuk stok yok.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,400 @@
+﻿/* ============================================================
+   DEPOM — Custom Override CSS
+   Wada Sanzo palet ilhamli
+   Primary  : #2A3042  (koyu lacivert)
+   Accent   : #C4A882  (bej/krem)
+   Surface  : #F5F4F0  (kirli beyaz zemin)
+   Text     : #1C1C2E
+============================================================ */
+
+:root {
+    --depom-primary: #2A3042;
+    --depom-primary-2: #3B4560;
+    --depom-accent: #C4A882;
+    --depom-accent-2: #A8896A;
+    --depom-surface: #F5F4F0;
+    --depom-border: #E2DED8;
+    --depom-text: #1C1C2E;
+    --depom-muted: #7A7A8C;
+    --depom-success: #4A7C6F;
+    --depom-danger: #B85450;
+    --depom-warning: #C4963A;
+    --depom-info: #4A6C8C;
+}
+
+/* ── Sidebar ────────────────────────────────────────────── */
+.sidebar {
+    background-color: var(--depom-primary) !important;
+}
+
+.sidebar-logo {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.sidebar-menu-group-title {
+    color: rgba(255,255,255,0.35) !important;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 20px 24px 6px;
+}
+
+.sidebar-menu > li > a {
+    color: rgba(255,255,255,0.65) !important;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 24px;
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+    text-decoration: none;
+}
+
+    .sidebar-menu > li > a:hover {
+        background: rgba(255,255,255,0.07) !important;
+        color: #fff !important;
+    }
+
+    .sidebar-menu > li > a.active-page {
+        background: var(--depom-accent) !important;
+        color: var(--depom-primary) !important;
+        font-weight: 700;
+    }
+
+        .sidebar-menu > li > a.active-page .menu-icon {
+            color: var(--depom-primary) !important;
+        }
+
+.menu-icon {
+    font-size: 18px;
+    color: rgba(255,255,255,0.5);
+    width: 20px;
+    text-align: center;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.navbar-header {
+    background: #fff;
+    border-bottom: 1px solid var(--depom-border);
+    padding: 12px 24px;
+}
+
+/* ── Dashboard body ─────────────────────────────────────── */
+.dashboard-main-body {
+    background: var(--depom-surface);
+    min-height: calc(100vh - 120px);
+    padding: 24px;
+}
+
+/* ── Cards ──────────────────────────────────────────────── */
+.card {
+    border: 1px solid var(--depom-border) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 4px rgba(42,48,66,0.06) !important;
+}
+
+.card-header {
+    background: #fff !important;
+    border-bottom: 1px solid var(--depom-border) !important;
+    font-weight: 600;
+    color: var(--depom-text);
+    padding: 16px 20px !important;
+}
+
+/* ── Stat Kartlari ──────────────────────────────────────── */
+.stat-card {
+    background: #fff;
+    border: 1px solid var(--depom-border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.stat-card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+    .stat-card-icon.primary {
+        background: rgba(42,48,66,0.08);
+        color: var(--depom-primary);
+    }
+
+    .stat-card-icon.accent {
+        background: rgba(196,168,130,0.15);
+        color: var(--depom-accent-2);
+    }
+
+    .stat-card-icon.success {
+        background: rgba(74,124,111,0.12);
+        color: var(--depom-success);
+    }
+
+    .stat-card-icon.danger {
+        background: rgba(184,84,80,0.12);
+        color: var(--depom-danger);
+    }
+
+    .stat-card-icon.info {
+        background: rgba(74,108,140,0.12);
+        color: var(--depom-info);
+    }
+
+.stat-card-label {
+    font-size: 12px;
+    color: var(--depom-muted);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.stat-card-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--depom-text);
+    line-height: 1;
+}
+
+/* ── Tablolar ───────────────────────────────────────────── */
+.table thead th {
+    background: var(--depom-primary) !important;
+    color: rgba(255,255,255,0.85) !important;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border: none !important;
+    padding: 12px 16px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid var(--depom-border);
+}
+
+    .table tbody tr:hover {
+        background: rgba(42,48,66,0.03);
+    }
+
+.table tbody td {
+    padding: 12px 16px;
+    vertical-align: middle;
+    font-size: 14px;
+    color: var(--depom-text);
+    border: none;
+}
+
+/* ── Butonlar ───────────────────────────────────────────── */
+.btn-depom-primary {
+    background: var(--depom-primary);
+    color: #fff;
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+    .btn-depom-primary:hover {
+        background: var(--depom-primary-2);
+        color: #fff;
+    }
+
+.btn-depom-accent {
+    background: var(--depom-accent);
+    color: var(--depom-primary);
+    border: none;
+    padding: 9px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+    .btn-depom-accent:hover {
+        background: var(--depom-accent-2);
+        color: #fff;
+    }
+
+/* ── Badge'ler ──────────────────────────────────────────── */
+.badge-depom-success {
+    background: rgba(74,124,111,0.15);
+    color: var(--depom-success);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge-depom-danger {
+    background: rgba(184,84,80,0.12);
+    color: var(--depom-danger);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge-depom-warning {
+    background: rgba(196,150,58,0.15);
+    color: var(--depom-warning);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge-depom-info {
+    background: rgba(74,108,140,0.12);
+    color: var(--depom-info);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge-depom-primary {
+    background: rgba(42,48,66,0.10);
+    color: var(--depom-primary);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.badge-depom-accent {
+    background: rgba(196,168,130,0.2);
+    color: var(--depom-accent-2);
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* ── Form elemanlari ────────────────────────────────────── */
+.form-control, .form-select {
+    border: 1px solid var(--depom-border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--depom-text);
+    padding: 10px 14px;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--depom-accent);
+        box-shadow: 0 0 0 3px rgba(196,168,130,0.15);
+    }
+
+.form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--depom-text);
+    margin-bottom: 6px;
+}
+
+/* ── Sayfa baslik ───────────────────────────────────────── */
+.page-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--depom-text);
+    margin-bottom: 0;
+}
+
+.page-subtitle {
+    font-size: 13px;
+    color: var(--depom-muted);
+    margin-top: 2px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+.d-footer {
+    background: #fff;
+    border-top: 1px solid var(--depom-border);
+    padding: 14px 24px;
+    font-size: 13px;
+    color: var(--depom-muted);
+}
+
+/* ── Alerts ─────────────────────────────────────────────── */
+.alert-success {
+    background: rgba(74,124,111,0.1);
+    border-color: var(--depom-success);
+    color: var(--depom-success);
+}
+
+.alert-danger {
+    background: rgba(184,84,80,0.08);
+    border-color: var(--depom-danger);
+    color: var(--depom-danger);
+}
+
+/* ── Modal ──────────────────────────────────────────────── */
+.modal-header {
+    border-bottom: 1px solid var(--depom-border);
+    padding: 16px 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--depom-border);
+    padding: 14px 20px;
+}
+
+/* ── Login sayfasi ──────────────────────────────────────── */
+.auth-page {
+    min-height: 100vh;
+    background: var(--depom-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid var(--depom-border);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 4px 24px rgba(42,48,66,0.10);
+}
+
+.auth-logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--depom-primary);
+    letter-spacing: -0.5px;
+}
+
+    .auth-logo span {
+        color: var(--depom-accent);
+    }
+
+/* ── Yardimci ───────────────────────────────────────────── */
+.text-depom-muted {
+    color: var(--depom-muted) !important;
+}
+
+.text-depom-primary {
+    color: var(--depom-primary) !important;
+}
+
+.text-depom-accent {
+    color: var(--depom-accent-2) !important;
+}
+
+.bg-depom-surface {
+    background: var(--depom-surface) !important;
+}

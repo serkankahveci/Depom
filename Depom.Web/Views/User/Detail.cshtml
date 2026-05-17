@@ -1,56 +1,71 @@
 @model Depom.Application.User.DTOs.UserDetailDto
 @{
-    ViewData["Title"] = "Kullanıcı Detayı";
-    var badgeClass = Model.Role switch
+    ViewData["Title"] = "Kullanici Detayi";
+    var (cls, lbl) = Model.Role switch
     {
-        Depom.Domain.Enums.AppRole.SystemAdmin => "bg-danger",
-        Depom.Domain.Enums.AppRole.BranchManager => "bg-primary",
-        Depom.Domain.Enums.AppRole.StockClerk => "bg-info text-dark",
-        _ => "bg-secondary"
+        Depom.Domain.Enums.AppRole.SystemAdmin => ("badge-depom-danger", "Sistem Yoneticisi"),
+        Depom.Domain.Enums.AppRole.BranchManager => ("badge-depom-info", "Sube Muduru"),
+        Depom.Domain.Enums.AppRole.StockClerk => ("badge-depom-accent", "Depo Personeli"),
+        _ => ("badge-depom-primary", "Izleyici")
     };
 }
 
-<div class="row justify-content-center">
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Kullanici Detayi</h5>
+        <p class="page-subtitle">@Model.FullName</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-depom-primary">
+            <i class="ri-pencil-line me-1"></i> Duzenle
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+            <i class="ri-arrow-left-line me-1"></i> Geri
+        </a>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">👤 @Model.FullName</h5>
-                <span class="badge @badgeClass">@Model.RoleDisplay</span>
-            </div>
+        <div class="card">
             <div class="card-body">
                 <dl class="row mb-0">
-                    <dt class="col-sm-4">Kullanıcı Adı</dt>
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Ad Soyad</dt>
+                    <dd class="col-sm-8 fw-semibold">@Model.FullName</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Kullanici Adi</dt>
                     <dd class="col-sm-8">@Model.Username</dd>
 
-                    <dt class="col-sm-4">Şube</dt>
-                    <dd class="col-sm-8">@(Model.BranchName ?? "—")</dd>
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Rol</dt>
+                    <dd class="col-sm-8"><span class="@cls">@lbl</span></dd>
 
-                    <dt class="col-sm-4">Durum</dt>
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Sube</dt>
+                    <dd class="col-sm-8">@(Model.BranchName ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Durum</dt>
                     <dd class="col-sm-8">
                         @if (Model.IsActive)
                         {
-                            <span class="badge bg-success">Aktif</span>
+                            <span class="badge-depom-success">Aktif</span>
                         }
                         else
                         {
-                            <span class="badge bg-warning text-dark">Pasif</span>
+                            <span class="badge-depom-warning">Pasif</span>
                         }
                     </dd>
 
-                    <dt class="col-sm-4">Kayıt Tarihi</dt>
-                    <dd class="col-sm-8">@Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</dd>
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Kayit Tarihi</dt>
+                    <dd class="col-sm-8" style="font-size:13px;">
+                        @Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                    </dd>
 
-                    <dt class="col-sm-4">Son Giriş</dt>
-                    <dd class="col-sm-8">
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Son Giris</dt>
+                    <dd class="col-sm-8" style="font-size:13px;">
                         @(Model.LastLoginAt.HasValue
                                                 ? Model.LastLoginAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
-                                                : "Henüz giriş yapılmadı")
+                                                : "Henuz giris yapilmadi")
                     </dd>
                 </dl>
-            </div>
-            <div class="card-footer d-flex gap-2">
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Düzenle</a>
-                <a asp-action="Index" class="btn btn-outline-secondary">Listeye Dön</a>
             </div>
         </div>
     </div>

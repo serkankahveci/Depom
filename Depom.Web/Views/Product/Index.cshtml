@@ -1,51 +1,107 @@
 ﻿@model List<Depom.Application.Product.DTOs.ProductListDto>
-@{ ViewData["Title"] = "Urunler"; }
+@{
+    ViewData["Title"] = "Urunler";
+}
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h4>Urunler</h4>
-    @if (User.IsInRole("SystemAdmin") || User.IsInRole("BranchManager"))
-    {
-        <a asp-action="Create" class="btn btn-primary btn-sm">+ Yeni Urun</a>
-    }
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Urunler</h5>
+        <p class="page-subtitle">Tum urun listesi</p>
+    </div>
+    <a asp-action="Create" class="btn-depom-primary">
+        <i class="ri-add-line me-1"></i> Yeni Urun
+    </a>
 </div>
 
-<div class="card border-0 shadow-sm">
+<div class="card">
     <div class="card-body p-0">
-        <table class="table table-hover mb-0">
-            <thead class="table-light">
+        <table class="table mb-0">
+            <thead>
                 <tr>
+                    <th>Stok Kodu</th>
                     <th>Urun Adi</th>
-                    <th>SKU</th>
                     <th>Kategori</th>
                     <th>Fiyat</th>
                     <th>Durum</th>
-                    <th></th>
+                    <th class="text-end">Islemler</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.Name</td>
-                    <td><code>@item.SKU</code></td>
-                    <td>@item.CategoryName</td>
-                    <td>@item.Price.ToString("N2") TL</td>
-                    <td><span class="badge bg-@(item.Status == Depom.Domain.Enums.ProductStatus.Active ? "success" : "secondary")">@item.Status</span></td>
-                    <td class="text-end">
-                        <a asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Detay</a>
-                        @if (User.IsInRole("SystemAdmin") || User.IsInRole("BranchManager"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Duzenle</a>
-                            <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline"
-                                  onsubmit="return confirm('Silinsin mi?')">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-sm btn-outline-danger">Sil</button>
-                            </form>
-                        }
-                    </td>
-                </tr>
-            }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-depom-muted" style="font-size:13px;">@(item.SKU ?? "-")</td>
+                        <td class="fw-semibold">@item.Name</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@(item.CategoryName ?? "-")</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@item.Price.ToString("N2") ₺</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <span class="badge-depom-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge-depom-danger">Pasif</span>
+                            }
+                        </td>
+                        <td class="text-end">
+                            <a asp-action="Detail" asp-route-id="@item.Id"
+                               class="btn btn-sm btn-outline-secondary me-1">
+                                <i class="ri-eye-line"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id"
+                               class="btn btn-sm btn-outline-primary me-1">
+                                <i class="ri-pencil-line"></i>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                    data-id="@item.Id" data-name="@item.Name">
+                                <i class="ri-delete-bin-line"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-depom-muted py-4">
+                            Henuz urun eklenmemis.
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>
 </div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Urunu Sil</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong id="deleteName"></strong> adli urunu silmek istediginize emin misiniz?</p>
+                <p class="text-danger" style="font-size:13px;">Bu islem geri alinamaz.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Iptal</button>
+                <form id="deleteForm" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger btn-sm">Sil</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (e) {
+            const btn = e.relatedTarget;
+            document.getElementById('deleteName').textContent = btn.getAttribute('data-name');
+            document.getElementById('deleteForm').action = '/Product/Delete/' + btn.getAttribute('data-id');
+        });
+    </script>
+}

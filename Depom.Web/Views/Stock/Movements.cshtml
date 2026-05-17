@@ -1,48 +1,80 @@
 ﻿@model List<Depom.Application.Stock.DTOs.StockMovementListDto>
-@{ ViewData["Title"] = "Hareket Gecmisi"; }
+@{
+    ViewData["Title"] = "Stok Hareketleri";
+}
 
-<h4 class="mb-4">Hareket Gecmisi</h4>
-<div class="card border-0 shadow-sm">
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Stok Hareketleri</h5>
+        <p class="page-subtitle">Giris, cikis ve duzeltme gecmisi</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="ri-arrow-left-line me-1"></i> Geri
+    </a>
+</div>
+
+<div class="card">
     <div class="card-body p-0">
-        <table class="table table-hover mb-0">
-            <thead class="table-light">
+        <table class="table mb-0">
+            <thead>
                 <tr>
                     <th>Urun</th>
-                    <th>Tur</th>
-                    <th class="text-center">Miktar</th>
-                    <th>Yapan</th>
+                    <th>Hareket Tipi</th>
+                    <th>Miktar</th>
                     <th>Not</th>
+                    <th>Islem Yapan</th>
                     <th>Tarih</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.ProductName</td>
-                    <td>
-                        @switch (item.Type)
-                        {
-                            case Depom.Domain.Enums.StockMovementType.In:
-                                <span class="badge bg-success">Giris</span>
-                                break;
-                            case Depom.Domain.Enums.StockMovementType.Out:
-                                <span class="badge bg-danger">Cikis</span>
-                                break;
-                            case Depom.Domain.Enums.StockMovementType.Adjust:
-                                <span class="badge bg-warning text-dark">Duzeltme</span>
-                                break;
-                            default:
-                                <span class="badge bg-info">Transfer</span>
-                                break;
-                        }
-                    </td>
-                    <td class="text-center">@item.Quantity</td>
-                    <td>@item.CreatedByUserName</td>
-                    <td>@(item.Note ?? "-")</td>
-                    <td>@item.CreatedAt.ToString("dd.MM.yyyy HH:mm")</td>
-                </tr>
-            }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@item.ProductName</td>
+                        <td>
+                            @switch (item.Type.ToString())
+                            {
+                                case "In":
+                                    <span class="badge-depom-success">
+                                        <i class="ri-arrow-down-line me-1"></i>Giris
+                                    </span>
+                                    break;
+                                case "Out":
+                                    <span class="badge-depom-danger">
+                                        <i class="ri-arrow-up-line me-1"></i>Cikis
+                                    </span>
+                                    break;
+                                case "Adjust":
+                                    <span class="badge-depom-warning">
+                                        <i class="ri-equalizer-line me-1"></i>Duzeltme
+                                    </span>
+                                    break;
+                                case "Transfer":
+                                    <span class="badge-depom-info">
+                                        <i class="ri-swap-line me-1"></i>Transfer
+                                    </span>
+                                    break;
+                                default:
+                                    <span class="badge-depom-primary">@item.Type</span>
+                                    break;
+                            }
+                        </td>
+                        <td class="fw-semibold">@item.Quantity</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@(item.Note ?? "-")</td>
+                        <td class="text-depom-muted" style="font-size:13px;">@item.CreatedByUserName</td>
+                        <td class="text-depom-muted" style="font-size:13px;">
+                            @item.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-depom-muted py-4">
+                            Henuz hareket kaydi bulunamadi.
+                        </td>
+                    </tr>
+                }
             </tbody>
         </table>
     </div>

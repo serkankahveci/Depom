@@ -67,7 +67,7 @@
     {
       "code": "NU1903",
       "level": "Warning",
-      "message": "'AutoMapper' 13.0.1 paketinde önem derecesi yüksek olan bilinen bir https://github.com/advisories/GHSA-rvv3-g6hj-g44x güvenlik açığı var",
+      "message": "Package 'AutoMapper' 13.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-rvv3-g6hj-g44x",
       "projectPath": "C:\\Projects\\Depom\\Depom.Application\\Depom.Application.csproj",
       "warningLevel": 1,
       "filePath": "C:\\Projects\\Depom\\Depom.Application\\Depom.Application.csproj",

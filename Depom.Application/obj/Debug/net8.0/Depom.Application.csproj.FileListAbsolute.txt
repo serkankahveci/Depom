@@ -10,9 +10,9 @@ C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.Generated
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.AssemblyInfoInputs.cache
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.AssemblyInfo.cs
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.csproj.CoreCompileInputs.cache
+C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.sourcelink.json
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Ap.A0EE6E80.Up2Date
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.dll
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\refint\Depom.Application.dll
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.pdb
 C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\ref\Depom.Application.dll
-C:\Projects\Depom\Depom.Application\obj\Debug\net8.0\Depom.Application.sourcelink.json

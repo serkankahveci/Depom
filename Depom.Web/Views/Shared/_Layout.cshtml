@@ -1,70 +1,54 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewData["Title"] - Depom</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/remixicon.css" />
+    <link rel="stylesheet" href="~/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
+    <link rel="stylesheet" href="~/css/depom.css" />
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">Depom</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navMenu">
-            @if (User.Identity?.IsAuthenticated == true)
-            {
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Branch" asp-action="Index">Subeler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Product" asp-action="Index">Urunler</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Stock" asp-action="Index">Stok</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Transfer" asp-action="Index">Transferler</a>
-                    </li>
-                    <li class="nav-item">
-                        @if (User.IsInRole("SystemAdmin"))
-                        {
-                            <a class="nav-link" asp-controller="User" asp-action="Index">Kullanıcılar</a>
-                        }
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            @User.Identity.Name
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li>
-                                <form asp-controller="Account" asp-action="Logout" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="dropdown-item">Cikis Yap</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            }
-        </div>
-    </div>
-</nav>
 
-<div class="container-fluid py-4">
-    @RenderBody()
-</div>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <partial name="~/Views/Shared/Partials/_Sidebar.cshtml" />
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-@await RenderSectionAsync("Scripts", required: false)
+        <main class="dashboard-main">
+            <partial name="~/Views/Shared/Partials/_Navbar.cshtml" />
+
+            <div class="dashboard-main-body">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+                        <i class="ri-checkbox-circle-line me-2"></i>@TempData["Success"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
+                        <i class="ri-error-warning-line me-2"></i>@TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+                @RenderBody()
+            </div>
+
+            <partial name="~/Views/Shared/Partials/_Footer.cshtml" />
+        </main>
+    }
+    else
+    {
+        @RenderBody()
+    }
+
+    <script src="~/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="~/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/js/app.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

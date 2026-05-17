@@ -1,21 +1,79 @@
 ﻿@model Depom.Application.Product.DTOs.ProductDetailDto
-@{ ViewData["Title"] = "Urun Detay"; }
+@{
+    ViewData["Title"] = "Urun Detayi";
+}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h4>@Model.Name</h4>
-    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">Geri</a>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Urun Detayi</h5>
+        <p class="page-subtitle">@Model.Name</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-depom-primary">
+            <i class="ri-pencil-line me-1"></i> Duzenle
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+            <i class="ri-arrow-left-line me-1"></i> Geri
+        </a>
+    </div>
 </div>
-<div class="card border-0 shadow-sm" style="max-width:560px">
-    <div class="card-body">
-        <dl class="row mb-0">
-            <dt class="col-5">SKU</dt><dd class="col-7"><code>@Model.SKU</code></dd>
-            <dt class="col-5">Barkod</dt><dd class="col-7">@(Model.Barcode ?? "-")</dd>
-            <dt class="col-5">Kategori</dt><dd class="col-7">@Model.CategoryName</dd>
-            <dt class="col-5">Fiyat</dt><dd class="col-7">@Model.Price.ToString("N2") TL</dd>
-            <dt class="col-5">Dusuk Stok Esigi</dt><dd class="col-7">@Model.LowStockThreshold</dd>
-            <dt class="col-5">Durum</dt><dd class="col-7">@Model.Status</dd>
-            <dt class="col-5">Aciklama</dt><dd class="col-7">@(Model.Description ?? "-")</dd>
-            <dt class="col-5">Olusturulma</dt><dd class="col-7">@Model.CreatedAt.ToString("dd.MM.yyyy")</dd>
-        </dl>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Urun Adi</dt>
+                    <dd class="col-sm-8 fw-semibold">@Model.Name</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Stok Kodu</dt>
+                    <dd class="col-sm-8">@(Model.SKU ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Barkod</dt>
+                    <dd class="col-sm-8">@(Model.Barcode ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Kategori</dt>
+                    <dd class="col-sm-8">@(Model.CategoryName ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Fiyat</dt>
+                    <dd class="col-sm-8">@Model.Price.ToString("N2") ₺</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Dusuk Stok Esigi</dt>
+                    <dd class="col-sm-8">@Model.LowStockThreshold</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Durum</dt>
+                    <dd class="col-sm-8">
+                        @switch (Model.Status.ToString())
+                        {
+                            case "Active":
+                                <span class="badge-depom-success">Aktif</span>
+                                break;
+                            case "Passive":
+                                <span class="badge-depom-danger">Pasif</span>
+                                break;
+                            default:
+                                <span class="badge-depom-primary">Taslak</span>
+                                break;
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Aciklama</dt>
+                    <dd class="col-sm-8">@(Model.Description ?? "-")</dd>
+
+                    <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Kayit Tarihi</dt>
+                    <dd class="col-sm-8" style="font-size:13px;">
+                        @Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                    </dd>
+
+                    @if (Model.UpdatedAt.HasValue)
+                    {
+                        <dt class="col-sm-4 text-depom-muted" style="font-size:13px;">Guncelleme</dt>
+                        <dd class="col-sm-8" style="font-size:13px;">
+                            @Model.UpdatedAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+                        </dd>
+                    }
+                </dl>
+            </div>
+        </div>
     </div>
 </div>

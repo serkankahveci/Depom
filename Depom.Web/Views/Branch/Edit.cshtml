@@ -1,29 +1,64 @@
 ﻿@model Depom.Application.Branch.DTOs.BranchUpdateDto
-@{ ViewData["Title"] = "Sube Duzenle"; }
+@{
+    ViewData["Title"] = "Sube Duzenle";
+}
 
-<h4 class="mb-4">Sube Duzenle</h4>
-<div class="card border-0 shadow-sm" style="max-width:560px">
-    <div class="card-body">
-        <form asp-action="Edit" method="post">
-            @Html.AntiForgeryToken()
-            <input asp-for="Id" type="hidden" />
-            <div class="mb-3">
-                <label asp-for="Name" class="form-label">Sube Adi</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger small"></span>
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+        <h5 class="page-title">Sube Duzenle</h5>
+        <p class="page-subtitle">Sube bilgilerini guncelle</p>
+    </div>
+    <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+        <i class="ri-arrow-left-line me-1"></i> Geri
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+                    @Html.AntiForgeryToken()
+                    <input asp-for="Id" type="hidden" />
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-3" style="font-size:13px;"></div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Sube Adi</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger" style="font-size:12px;"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Adres</label>
+                        <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Address" class="text-danger" style="font-size:12px;"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefon</label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger" style="font-size:12px;"></span>
+                    </div>
+
+                    <div class="mb-4 form-check">
+                        <input asp-for="IsActive" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" style="font-size:14px;">Aktif</label>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn-depom-primary">
+                            <i class="ri-save-line me-1"></i> Guncelle
+                        </button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Iptal</a>
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label asp-for="Address" class="form-label">Adres</label>
-                <textarea asp-for="Address" class="form-control" rows="2"></textarea>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Phone" class="form-label">Telefon</label>
-                <input asp-for="Phone" class="form-control" />
-            </div>
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Guncelle</button>
-                <a asp-action="Index" class="btn btn-outline-secondary">Iptal</a>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

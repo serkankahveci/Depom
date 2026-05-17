@@ -1,0 +1,39 @@
+# Build ciktilari
+bin/
+obj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# Publish
+publish/
+out/
+
+# Log
+*.log
+logs/
+
+# Local ayarlar
+appsettings.Development.json
+appsettings.Local.json
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+.nuget/
+
+# Copilot index
+CopilotIndices/
