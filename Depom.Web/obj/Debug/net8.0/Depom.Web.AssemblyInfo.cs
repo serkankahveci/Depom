@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Depom.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b863b0c4369f10d8b7c490acd77c1f89ea5e50f1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bccda4b1339a5d5e3a38f619fe1e8dcd4f05e52")]
 [assembly: System.Reflection.AssemblyProductAttribute("Depom.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Depom.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

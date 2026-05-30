@@ -1,5 +1,9 @@
-﻿@{
+﻿@using Depom.Application.Transfer.DTOs
+@using Depom.Application.Stock.DTOs
+@{
     ViewData["Title"] = "Dashboard";
+    var recentTransfers = ViewBag.RecentTransfers as List<TransferListDto> ?? new List<TransferListDto>();
+    var lowStockItems = ViewBag.LowStockItems as List<StockItemDto> ?? new List<StockItemDto>();
 }
 
 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -9,7 +13,6 @@
     </div>
 </div>
 
-<!-- Stat Kartlari -->
 <div class="row g-3 mb-4">
     <div class="col-xl-3 col-sm-6">
         <div class="stat-card">
@@ -18,7 +21,7 @@
             </div>
             <div>
                 <div class="stat-card-label">Subeler</div>
-                <div class="stat-card-value">@ViewBag.BranchCount</div>
+                <div class="stat-card-value">@(ViewBag.BranchCount ?? 0)</div>
             </div>
         </div>
     </div>
@@ -29,7 +32,7 @@
             </div>
             <div>
                 <div class="stat-card-label">Urunler</div>
-                <div class="stat-card-value">@ViewBag.ProductCount</div>
+                <div class="stat-card-value">@(ViewBag.ProductCount ?? 0)</div>
             </div>
         </div>
     </div>
@@ -40,7 +43,7 @@
             </div>
             <div>
                 <div class="stat-card-label">Stok Kalemleri</div>
-                <div class="stat-card-value">@ViewBag.StockCount</div>
+                <div class="stat-card-value">@(ViewBag.StockCount ?? 0)</div>
             </div>
         </div>
     </div>
@@ -51,13 +54,12 @@
             </div>
             <div>
                 <div class="stat-card-label">Aktif Transferler</div>
-                <div class="stat-card-value">@ViewBag.ActiveTransferCount</div>
+                <div class="stat-card-value">@(ViewBag.ActiveTransferCount ?? 0)</div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Son Transferler -->
 <div class="row g-3">
     <div class="col-xl-8">
         <div class="card">
@@ -72,47 +74,42 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Kaynak Sube</th>
-                            <th>Hedef Sube</th>
+                            <th>Urun</th>
+                            <th>Kaynak</th>
+                            <th>Hedef</th>
                             <th>Durum</th>
                             <th>Tarih</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (ViewBag.RecentTransfers != null)
+                        @foreach (var t in recentTransfers)
                         {
-                            foreach (var t in ViewBag.RecentTransfers)
+                            var (badgeClass, badgeLabel) = t.Status.ToString() switch
                             {
-                                <tr>
-                                    <td>#@t.Id</td>
-                                    <td>@t.SourceBranchName</td>
-                                    <td>@t.TargetBranchName</td>
-                                    <td>
-                                        @{
-                                            var (badgeClass, label) = ((string)t.Status.ToString()) switch
-                                            {
-                                                "Draft" => ("badge-depom-primary", "Taslak"),
-                                                "Pending" => ("badge-depom-warning", "Beklemede"),
-                                                "Approved" => ("badge-depom-info", "Onaylandi"),
-                                                "InTransit" => ("badge-depom-accent", "Yolda"),
-                                                "Received" => ("badge-depom-success", "Alindi"),
-                                                "Cancelled" => ("badge-depom-danger", "Iptal"),
-                                                "Rejected" => ("badge-depom-danger", "Reddedildi"),
-                                                _ => ("badge-depom-primary", t.Status.ToString())
-                                            };
-                                        }
-                                        <span class="@badgeClass">@label</span>
-                                    </td>
-                                    <td class="text-depom-muted" style="font-size:13px;">
-                                        @t.CreatedAt.ToString("dd.MM.yyyy")
-                                    </td>
-                                </tr>
-                            }
+                                "Draft" => ("badge-depom-primary", "Taslak"),
+                                "Pending" => ("badge-depom-warning", "Beklemede"),
+                                "Approved" => ("badge-depom-info", "Onaylandi"),
+                                "InTransit" => ("badge-depom-accent", "Yolda"),
+                                "Received" => ("badge-depom-success", "Alindi"),
+                                "Cancelled" => ("badge-depom-danger", "Iptal"),
+                                "Rejected" => ("badge-depom-danger", "Reddedildi"),
+                                _ => ("badge-depom-primary", t.Status.ToString())
+                            };
+                            <tr>
+                                <td class="text-depom-muted" style="font-size:13px;">#@t.Id</td>
+                                <td class="fw-semibold" style="font-size:13px;">@t.ProductName</td>
+                                <td class="text-depom-muted" style="font-size:13px;">@t.SourceBranchName</td>
+                                <td class="text-depom-muted" style="font-size:13px;">@t.TargetBranchName</td>
+                                <td><span class="@badgeClass">@badgeLabel</span></td>
+                                <td class="text-depom-muted" style="font-size:13px;">
+                                    @t.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy")
+                                </td>
+                            </tr>
                         }
-                        else
+                        @if (!recentTransfers.Any())
                         {
                             <tr>
-                                <td colspan="5" class="text-center text-depom-muted py-4">
+                                <td colspan="6" class="text-center text-depom-muted py-4">
                                     Henuz transfer bulunmuyor.
                                 </td>
                             </tr>
@@ -125,7 +122,10 @@
 
     <div class="col-xl-4">
         <div class="card h-100">
-            <div class="card-header">Dusuk Stok Uyarisi</div>
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <span>Dusuk Stok Uyarisi</span>
+                <i class="ri-alert-line text-depom-muted"></i>
+            </div>
             <div class="card-body p-0">
                 <table class="table mb-0">
                     <thead>
@@ -136,20 +136,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if (ViewBag.LowStockItems != null)
+                        @foreach (var s in lowStockItems)
                         {
-                            foreach (var s in ViewBag.LowStockItems)
-                            {
-                                <tr>
-                                    <td style="font-size:13px;">@s.ProductName</td>
-                                    <td style="font-size:13px;" class="text-depom-muted">@s.BranchName</td>
-                                    <td>
-                                        <span class="badge-depom-danger">@s.Quantity</span>
-                                    </td>
-                                </tr>
-                            }
+                            <tr>
+                                <td style="font-size:13px;">@s.ProductName</td>
+                                <td style="font-size:13px;" class="text-depom-muted">@s.BranchName</td>
+                                <td><span class="badge-depom-danger">@s.Quantity</span></td>
+                            </tr>
                         }
-                        else
+                        @if (!lowStockItems.Any())
                         {
                             <tr>
                                 <td colspan="3" class="text-center text-depom-muted py-4">

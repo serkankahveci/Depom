@@ -15,56 +15,102 @@
         <a asp-action="Adjust" class="btn btn-outline-secondary btn-sm">
             <i class="ri-equalizer-line me-1"></i> Duzelt
         </a>
+        @if (ViewBag.BranchId != null)
+        {
+            <a asp-action="Movements" asp-route-branchId="@ViewBag.BranchId" class="btn btn-outline-secondary btn-sm">
+                <i class="ri-history-line me-1"></i> Hareketler
+            </a>
+        }
     </div>
 </div>
 
-<div class="card">
-    <div class="card-body p-0">
-        <table class="table mb-0">
-            <thead>
-                <tr>
-                    <th>Urun</th>
-                    <th>Stok Kodu</th>
-                    <th>Sube</th>
-                    <th>Miktar</th>
-                    <th>Rezerve</th>
-                    <th>Kullanilabilir</th>
-                    <th>Durum</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
+<div class="card mb-4">
+    <div class="card-body py-3">
+        <form method="get" asp-action="Index" class="d-flex align-items-center gap-3">
+            <label class="form-label mb-0 fw-semibold" style="white-space:nowrap;">Sube:</label>
+            <select name="branchId" class="form-select" style="max-width:280px;" onchange="this.form.submit()">
+                <option value="">-- Sube Secin --</option>
+                @foreach (var item in (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)ViewBag.Branches)
                 {
-                    <tr>
-                        <td class="fw-semibold">@item.ProductName</td>
-                        <td class="text-depom-muted" style="font-size:13px;">@item.SKU</td>
-                        <td class="text-depom-muted" style="font-size:13px;">@item.BranchName</td>
-                        <td>@item.Quantity</td>
-                        <td class="text-depom-muted">@item.ReservedQuantity</td>
-                        <td class="fw-semibold">@item.AvailableQuantity</td>
-                        <td>
-                            @if (item.IsLowStock)
-                            {
-                                <span class="badge-depom-danger">
-                                    <i class="ri-alert-line me-1"></i>Dusuk Stok
-                                </span>
-                            }
-                            else
-                            {
-                                <span class="badge-depom-success">Normal</span>
-                            }
-                        </td>
-                    </tr>
+                    if (item.Selected)
+                    {
+                        <option value="@item.Value" selected>@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
                 }
-                @if (!Model.Any())
-                {
-                    <tr>
-                        <td colspan="7" class="text-center text-depom-muted py-4">
-                            Stok kaydi bulunamadi.
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            </select>
+            @if (ViewBag.BranchId != null)
+            {
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                    <i class="ri-close-line"></i> Temizle
+                </a>
+            }
+        </form>
     </div>
 </div>
+
+@if (ViewBag.BranchId == null)
+{
+    <div class="card">
+        <div class="card-body text-center text-depom-muted py-5">
+            <i class="ri-store-2-line" style="font-size:48px; opacity:0.3; display:block;"></i>
+            <p class="mt-3 mb-0">Stok goruntulemek icin bir sube secin.</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-body p-0">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th>Urun</th>
+                        <th>Stok Kodu</th>
+                        <th>Miktar</th>
+                        <th>Rezerve</th>
+                        <th>Kullanilabilir</th>
+                        <th>Min. Esik</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@item.ProductName</td>
+                            <td class="text-depom-muted" style="font-size:13px;">@item.SKU</td>
+                            <td class="fw-semibold">@item.Quantity</td>
+                            <td class="text-depom-muted">@item.ReservedQuantity</td>
+                            <td class="fw-semibold">@item.AvailableQuantity</td>
+                            <td class="text-depom-muted">@item.LowStockThreshold</td>
+                            <td>
+                                @if (item.IsLowStock)
+                                {
+                                    <span class="badge-depom-danger">
+                                        <i class="ri-alert-line me-1"></i>Dusuk Stok
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge-depom-success">Normal</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="7" class="text-center text-depom-muted py-4">
+                                Bu subede stok kaydi bulunamadi.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

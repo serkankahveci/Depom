@@ -35,6 +35,13 @@
             </li>
 
             <li>
+                <a href="/Category/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Category" ? "active-page" : "")">
+                    <i class="ri-price-tag-3-line menu-icon"></i>
+                    <span>Kategoriler</span>
+                </a>
+            </li>
+
+            <li>
                 <a href="/Stock/Index" class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Stock" ? "active-page" : "")">
                     <i class="ri-stack-line menu-icon"></i>
                     <span>Stok</span>

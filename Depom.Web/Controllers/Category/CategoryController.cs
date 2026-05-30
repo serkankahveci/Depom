@@ -29,6 +29,43 @@ public class CategoryController : Controller
     {
         if (!ModelState.IsValid) return View(dto);
         await _categoryService.CreateAsync(dto);
+        TempData["Success"] = "Kategori olusturuldu.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    public async Task<IActionResult> Edit(int id)
+    {
+        var category = await _categoryService.GetByIdAsync(id);
+        if (category == null) return NotFound();
+        var dto = new CategoryCreateDto
+        {
+            Name = category.Name,
+            Description = category.Description
+        };
+        ViewBag.Id = id;
+        return View(dto);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, CategoryCreateDto dto)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Id = id;
+            return View(dto);
+        }
+        await _categoryService.UpdateAsync(id, dto);
+        TempData["Success"] = "Kategori guncellendi.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _categoryService.DeleteAsync(id);
+        TempData["Success"] = "Kategori silindi.";
         return RedirectToAction(nameof(Index));
     }
 }
